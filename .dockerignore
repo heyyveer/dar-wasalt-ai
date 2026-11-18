@@ -1,0 +1,14 @@
+
+venv/
+.venv/
+__pycache__/
+*.pyc
+.env
+.git/
+.pytest_cache/
+.streamlit/secrets.toml
+evaluation_reports/
+app_backup.py
+chat_backup.py
+inspect_*.py
+test_*.py
