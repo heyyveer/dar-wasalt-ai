@@ -9,10 +9,10 @@ ENV OMP_NUM_THREADS=1
 ENV MKL_NUM_THREADS=1
 ENV TOKENIZERS_PARALLELISM=false
 
-COPY requirements.txt .
+COPY requirements-render.txt .
 
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+    pip install --no-cache-dir -r requirements-render.txt
 
 COPY app.py .
 COPY chatbot/ ./chatbot/

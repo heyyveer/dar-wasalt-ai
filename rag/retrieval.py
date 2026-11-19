@@ -1,17 +1,17 @@
 
 import chromadb
-from sentence_transformers import SentenceTransformer
+from chromadb.utils.embedding_functions import DefaultEmbeddingFunction
 
 DB_PATH = "chroma_db"
 COLLECTION_NAME = "dar_wasalt_knowledge"
-MODEL_NAME = "all-MiniLM-L6-v2"
 
-model = SentenceTransformer(MODEL_NAME)
+embedding_function = DefaultEmbeddingFunction()
 
 client = chromadb.PersistentClient(path=DB_PATH)
 
 collection = client.get_collection(
-    name=COLLECTION_NAME
+    name=COLLECTION_NAME,
+    embedding_function=embedding_function
 )
 
 
@@ -35,13 +35,8 @@ def retrieve(
     if total_chunks == 0:
         return []
 
-    query_embedding = model.encode(
-        query,
-        normalize_embeddings=True
-    ).tolist()
-
     query_args = {
-        "query_embeddings": [query_embedding],
+        "query_texts": [query],
         "n_results": min(top_k, total_chunks)
     }
 
